@@ -1,0 +1,37 @@
+name: Build Apk
+on: 
+ workflow_dispatch:
+  inputs:
+   retentionDays:
+   description: "The number of days to retain the apk."
+   required: true
+   default: "10"
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v2.3.1 
+      - name: Setup Ninja 
+        uses: seanmiddleditch/gha-setup-ninja@master
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '17'
+      - uses: sparkfabrik/android-build-action@v1.5.0
+        with:
+          project-path: tools/android_project
+          output-path: SkyEmu.apk
+          gradle-task: assembleDebug
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+           name: AndroidDebug
+           path: SkyEmu.apk
+           retention-days: ${{ github.event.inputs.retentionDays }}
+ 
+
+        
+ 

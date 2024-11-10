@@ -25,9 +25,8 @@ jobs:
           
       - name: build
         run: |
-          cd '/home/runner/work/SkyEmu/SkyEmu/tools/android_project'
           chmod +x gradlew
-          ./gradlew assembleDebug --stacktrace
+          ./gradlew tools/android_project:assembleDebug --stacktrace
 
  
       - name: Upload the APK artifact 

@@ -26,6 +26,7 @@ jobs:
       - name: build
         run: |
           chmod +x gradlew
+          if [ ! -f "gradlew" ]; then gradle wrapper; fi
           ./gradlew tools/android_project:assembleDebug --stacktrace
 
  

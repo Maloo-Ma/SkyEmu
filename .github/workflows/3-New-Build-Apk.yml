@@ -8,11 +8,7 @@ on:
         required: true
         default: "10"
    
-      module:
-        description: 'module'
-        required: true
-        default: 'tools/android_project'
-   
+
 jobs:
   main:
     runs-on: ubuntu-latest
@@ -29,9 +25,10 @@ jobs:
           
       - name: build
         run: |
+          cd '/home/runner/work/SkyEmu/SkyEmu/tools/android_project'
           if [ ! -f "gradlew" ]; then gradle wrapper; fi
           chmod +x gradlew 
-          ./gradlew ${{ github.event.inputs.module }}:assembleDebug --stacktrace
+          ./gradlew assembleDebug --stacktrace
 
  
       - name: Upload the APK artifact 

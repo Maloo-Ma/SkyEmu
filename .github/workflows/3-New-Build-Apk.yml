@@ -27,7 +27,7 @@ jobs:
         run: |
           if [ ! -f "gradlew" ]; then gradle wrapper; fi
           chmod +x gradlew 
-          ./gradlew tools/android_project:assembleDebug --stacktrace
+          ./gradlew :tools/android_project:assembleDebug --stacktrace
 
  
       - name: Upload the APK artifact 

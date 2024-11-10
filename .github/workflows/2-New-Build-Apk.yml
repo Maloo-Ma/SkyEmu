@@ -1,0 +1,44 @@
+name: Build Apk
+on: 
+ workflow_dispatch:
+  inputs:
+   retentionDays:
+   description: "The number of days to retain the apk."
+   required: true
+   default: "10"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Build debug APK
+        run: bash ./gradlew assembleDebug --stacktrace
+
+ 
+      - name: Upload the APK artifact 
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk-archive
+          path: ./**/*.apk
+          retention-days: ${{ github.event.inputs.retentionDays }}
+
+ 
+
+        
+ 

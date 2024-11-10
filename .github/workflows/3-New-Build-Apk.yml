@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
-          java-version: ${{ github.event.inputs.jdkVersion }}
+          java-version: 17
 
           
       - name: build

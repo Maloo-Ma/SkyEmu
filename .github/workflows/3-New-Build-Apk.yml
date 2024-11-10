@@ -25,7 +25,7 @@ jobs:
           
       - name: build
         run: |
-          cd '/home/runner/work/SkyEmu/SkyEmu/tools/android_project'
+          cd ./tool/android_project
           if [ ! -f "gradlew" ]; then gradle wrapper; fi
           chmod +x gradlew 
           ./gradlew assembleDebug --stacktrace
